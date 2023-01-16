@@ -1,0 +1,32 @@
+<h1>My Journal List</h1>
+<hr>
+<button><a href="{% url 'options' %}">Go back</a></button><br><br>
+<button><a href="{% url 'journ-create' %}">Add Journal</a></button>
+<table border="5">
+    <thead>
+        <tr>
+            <th>Journal name</th>
+            <th>Journal ID</th>
+            <th>Journal doi</th>
+            <th>Ugc list</th>
+            <th>Journal article</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for i in journals %}
+            <tr>
+                <td>{{i.journal_name}}</td>
+                <td>{{i.journal_id}}</td>
+                <td>{{i.journal_doi}}</td>
+                <td>{{ i.ugc_listed }}</td>
+                <td>
+                    {% if i.journal_article %}
+                      <a href="{{ i.journal_article.url }}" target="_blank" >View PDF</a>
+                      <a href="{{ i.journal_article.url }}" target="_blank" download>Downoad PDF</a>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table
+
