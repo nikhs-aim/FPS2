@@ -14,4 +14,4 @@ class RegistrationForm(UserCreationForm):
 
     class Meta(UserCreationForm.Meta):
         model = Faculty
-        fields = ('username', 'age', 'email', 'id', 'gender', 'role','department_name','phone_number','password1','password2')
+        fields = ('username', 'age', 'email', 'id', 'gender','department_name','phone_number','password1','password2')

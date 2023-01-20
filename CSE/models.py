@@ -9,11 +9,7 @@ from django.contrib.auth.models import User
 
 
 class Faculty(AbstractUser):
-    ROLE_CHOICES = (
-        ('HOD','HOD'),
-        ('Other','Other'),
-    )
-    role = models.CharField(max_length=20, choices=ROLE_CHOICES)
+    
     age = models.PositiveIntegerField(default=0)
     GENDER_CHOICES = (
         ('male', 'Male'),
@@ -46,7 +42,7 @@ class Conference(models.Model):
     fac_name=models.ForeignKey(Faculty,on_delete=models.CASCADE)
     conference_id = models.CharField(primary_key=True,max_length=100)
     conference_name = models.CharField(max_length=255)
-    conference_article = models.FileField(upload_to='conferences/',validators=[validate_pdf])
+    conference_article = models.FileField(upload_to='conference/',validators=[validate_pdf])
     conference_doi=models.IntegerField()
     ugc=(('Yes','Yes'),('No','No'))
     ugc_listed=models.CharField(max_length=10,choices=ugc)
@@ -60,7 +56,7 @@ class Journal(models.Model):
     fac_name=models.ForeignKey(Faculty,on_delete=models.CASCADE)
     journal_id = models.CharField(primary_key=True,max_length=100)
     journal_name = models.CharField(max_length=255)
-    journal_article = models.FileField(upload_to='journals/',validators=[validate_pdf])
+    journal_article = models.FileField(upload_to='journal/',validators=[validate_pdf])
     journal_doi=models.IntegerField()
     ugc=(('Yes','Yes'),('No','No'))
     ugc_listed=models.CharField(max_length=10,choices=ugc)

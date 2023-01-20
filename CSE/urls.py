@@ -10,8 +10,9 @@ urlpatterns = [
     path('journ-create/',journalcreate.as_view(),name='journ-create'),
     path('logout/',LogoutView.as_view(next_page='login'),name='logout'),
     path('options',Options,name='options'),
-     path('register/', views.registration_view, name='register'),
+    path('register/', views.registration_view, name='register'),
     path('login/', views.login_view, name='login'),
+    path('choose',views.choose,name='choose'),
     
 ]
     

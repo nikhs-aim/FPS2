@@ -37,6 +37,7 @@ def login_view(request):
 def Options(request):
     return render(request,'options.html')
 
+
 def conference_details(request):
     if request.user.is_authenticated:
         conferences = Conference.objects.filter(fac_name=request.user)
@@ -55,8 +56,6 @@ class conferencecreate(CreateView):
         form.instance.fac_name = self.request.user
         return super().form_valid(form)    
   
-
-  
      
 def journal_details(request):
     if request.user.is_authenticated:
@@ -64,6 +63,7 @@ def journal_details(request):
     else:
         journals = Journal.objects.all()
     return render(request, 'journaldetail.html', {'journals': journals})
+
 
 class journalcreate(CreateView):
     model=Journal
@@ -75,3 +75,5 @@ class journalcreate(CreateView):
         form.instance.fac_name = self.request.user
         return super().form_valid(form)
  
+def choose(request):
+    return render(request,'choose.html')
