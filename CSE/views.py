@@ -57,7 +57,7 @@ def conference_details(request):
 def hod_view_other_conference_details(request):
     if request.user.is_authenticated:
         conferences=Conference.objects.exclude(fac_name=request.user)
-    return render(request, 'hodconferencedetail.html', {'conferences': conferences})
+    return render(request, 'hodviewconferencedetail.html', {'conferences': conferences})
 
 
 class conferencecreate(CreateView):
@@ -82,7 +82,7 @@ def journal_details(request):
 def hod_view_other_journal_details(request):
     if request.user.is_authenticated:
         journals=Journal.objects.exclude(fac_name=request.user)
-    return render(request, 'hodjournaldetail.html', {'journals':journals})
+    return render(request, 'hodviewjournaldetail.html', {'journals':journals})
 
 
 class journalcreate(CreateView):
@@ -95,6 +95,7 @@ class journalcreate(CreateView):
         form.instance.fac_name = self.request.user
         return super().form_valid(form)
  
+
 
 
 def choose(request):
