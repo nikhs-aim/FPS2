@@ -1,14 +1,12 @@
-<h1>My Journal List</h1>
+<h1>Faculty Journal List</h1>
 <hr>
-{% if user.role == "HOD" %}
 <button><a href="{% url 'hodoptions' %}">Go back</a></button><br><br>
-{% else %}
-<button><a href="{% url 'options' %}">Go back</a></button><br><br>
-{% endif %}
-<button><a href="{% url 'journ-create' %}">Add Journal</a></button>
 <table border="5">
     <thead>
         <tr>
+            {% if user.role == "HOD" %}
+               <th>Faculty</th>
+            {% endif %}
             <th>Journal name</th>
             <th>Journal ID</th>
             <th>Journal doi</th>
@@ -19,6 +17,9 @@
     <tbody>
         {% for i in journals %}
             <tr>
+                {% if user.role == "HOD" %}
+                   <td>{{i.fac_name}}</td>
+                {% endif %}
                 <td>{{i.journal_name}}</td>
                 <td>{{i.journal_id}}</td>
                 <td>{{i.journal_doi}}</td>

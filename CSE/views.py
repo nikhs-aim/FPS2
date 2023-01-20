@@ -8,6 +8,8 @@ from django.contrib.auth import login
 from django.urls import reverse_lazy
 from .forms import RegistrationForm
 
+
+
 def registration_view(request):
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
@@ -27,23 +29,35 @@ def login_view(request):
         if form.is_valid():
             user = form.get_user()
             login(request, user)
-            return redirect('options')
+            if user.role == "HOD":
+                return redirect('hodoptions')
+            elif user.role == "OTHER":
+                return redirect('options')
     else:
         form = AuthenticationForm()
     return render(request, 'login.html', {'form': form})
 
 
 
+
 def Options(request):
     return render(request,'options.html')
+
+def hod_options(request):
+    return render (request,'hodoption.html')
+
 
 
 def conference_details(request):
     if request.user.is_authenticated:
         conferences = Conference.objects.filter(fac_name=request.user)
-    else:
-        conferences = Conference.objects.all()
     return render(request, 'conferencedetail.html', {'conferences': conferences})
+
+
+def hod_view_other_conference_details(request):
+    if request.user.is_authenticated:
+        conferences=Conference.objects.exclude(fac_name=request.user)
+    return render(request, 'hodconferencedetail.html', {'conferences': conferences})
 
 
 class conferencecreate(CreateView):
@@ -55,14 +69,20 @@ class conferencecreate(CreateView):
     def form_valid(self, form):
         form.instance.fac_name = self.request.user
         return super().form_valid(form)    
-  
+
+
+
      
 def journal_details(request):
     if request.user.is_authenticated:
         journals = Journal.objects.filter(fac_name=request.user)
-    else:
-        journals = Journal.objects.all()
     return render(request, 'journaldetail.html', {'journals': journals})
+
+
+def hod_view_other_journal_details(request):
+    if request.user.is_authenticated:
+        journals=Journal.objects.exclude(fac_name=request.user)
+    return render(request, 'hodjournaldetail.html', {'journals':journals})
 
 
 class journalcreate(CreateView):
@@ -75,5 +95,11 @@ class journalcreate(CreateView):
         form.instance.fac_name = self.request.user
         return super().form_valid(form)
  
+
+
 def choose(request):
     return render(request,'choose.html')
+
+
+def home(request):
+    return render (request,'home.html')

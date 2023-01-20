@@ -18,6 +18,9 @@ class Faculty(AbstractUser):
     gender = models.CharField(max_length=6, choices=GENDER_CHOICES)
     department_name = models.CharField(max_length=100)
     phone_number = models.CharField(max_length=15, null=False, blank=False,unique=True)
+    ROLE=(('HOD','HOD'),('OTHER','OTHER'))
+    role=models.CharField(max_length=10,choices=ROLE,default='OTHER')
+
 
     def clean(self):
         if not re.match(r'^(?:\+\d{2})?\d{10}$', self.phone_number):
@@ -43,7 +46,7 @@ class Conference(models.Model):
     conference_id = models.CharField(primary_key=True,max_length=100)
     conference_name = models.CharField(max_length=255)
     conference_article = models.FileField(upload_to='conference/',validators=[validate_pdf])
-    conference_doi=models.IntegerField()
+    conference_doi=models.IntegerField(null=True,blank=True)
     ugc=(('Yes','Yes'),('No','No'))
     ugc_listed=models.CharField(max_length=10,choices=ugc)
 
@@ -57,7 +60,7 @@ class Journal(models.Model):
     journal_id = models.CharField(primary_key=True,max_length=100)
     journal_name = models.CharField(max_length=255)
     journal_article = models.FileField(upload_to='journal/',validators=[validate_pdf])
-    journal_doi=models.IntegerField()
+    journal_doi=models.IntegerField(null=True,blank=True)
     ugc=(('Yes','Yes'),('No','No'))
     ugc_listed=models.CharField(max_length=10,choices=ugc)
 
