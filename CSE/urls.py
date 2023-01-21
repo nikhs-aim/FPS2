@@ -17,9 +17,11 @@ urlpatterns = [
     path('logout/',LogoutView.as_view(next_page='login'),name='logout'),
     path('options',Options,name='options'),
     path('hodoptions',views.hod_options,name='hodoptions'),
+    path('otheroptions',views.other_option,name='otheroptions'),
     path('register/', views.registration_view, name='register'),
     path('login/', views.login_view, name='login'),
-    path('choose',views.choose,name='choose'),
+    path('hodhomeafterlogin',views.hod_home_after_login,name='hodhomeafterlogin'),
+    path('otherhomeafterlogin',views.other_home_after_login,name='otherhomeafterlogin'),
     path('',views.home,name='home')
     
 ]

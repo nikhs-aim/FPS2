@@ -31,7 +31,7 @@ class Faculty(AbstractUser):
 
 
 
-##########################################################################################################################
+
 
 def validate_pdf(value):
     ext = os.path.splitext(value.name)[1]
@@ -39,7 +39,8 @@ def validate_pdf(value):
     if ext not in valid_extensions:
         raise ValidationError("File should be in pdf format")
 
-##########################################################################################################################
+
+
 
 class Conference(models.Model):
     fac_name=models.ForeignKey(Faculty,on_delete=models.CASCADE)
@@ -53,7 +54,8 @@ class Conference(models.Model):
     def __str__(self):
         return self.conference_name
 
-##########################################################################################################################
+
+
 
 class Journal(models.Model):
     fac_name=models.ForeignKey(Faculty,on_delete=models.CASCADE)
@@ -67,4 +69,3 @@ class Journal(models.Model):
     def __str__(self):
         return self.journal_name
 
-##########################################################################################################################

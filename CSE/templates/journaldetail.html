@@ -3,7 +3,7 @@
 {% if user.role == "HOD" %}
 <button><a href="{% url 'hodoptions' %}">Go back</a></button><br><br>
 {% else %}
-<button><a href="{% url 'options' %}">Go back</a></button><br><br>
+<button><a href="{% url 'otheroptions' %}">Go back</a></button><br><br>
 {% endif %}
 <button><a href="{% url 'journ-create' %}">Add Journal</a></button>
 <table border="5">

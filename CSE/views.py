@@ -1,4 +1,3 @@
-from typing import Self
 from django.shortcuts import render
 from .models import Conference,Journal
 from django.views.generic.edit import CreateView
@@ -11,6 +10,7 @@ from .forms import RegistrationForm
 from django.views.generic.edit import UpdateView
 from django.http import HttpResponseRedirect
 from django.views.generic.edit import DeleteView
+
 
 
 
@@ -34,9 +34,9 @@ def login_view(request):
             user = form.get_user()
             login(request, user)
             if user.role == "HOD":
-                return redirect('hodoptions')
+                return redirect('hodhomeafterlogin')
             elif user.role == "OTHER":
-                return redirect('options')
+                return redirect('otherhomeafterlogin')
     else:
         form = AuthenticationForm()
     return render(request, 'login.html', {'form': form})
@@ -44,11 +44,24 @@ def login_view(request):
 
 
 
+def other_home_after_login(request):
+    return render(request,'otherhomeafterlogin.html')
+
+def hod_home_after_login(request):
+    return render (request,'hodhomeafterlogin.html')
+
+
+
+
 def Options(request):
     return render(request,'options.html')
 
+def other_option(request):
+    return render(request,'otheroption.html')
+
 def hod_options(request):
     return render (request,'hodoption.html')
+
 
 
 
@@ -58,11 +71,12 @@ def conference_details(request):
     return render(request, 'conferencedetail.html', {'conferences': conferences})
 
 
-
 def hod_view_other_conference_details(request):
     if request.user.is_authenticated:
         conferences=Conference.objects.exclude(fac_name=request.user)
     return render(request, 'hodviewconferencedetail.html', {'conferences': conferences})
+
+
 
 
 class conferencecreate(CreateView):
@@ -76,23 +90,27 @@ class conferencecreate(CreateView):
         return super().form_valid(form)    
 
 
+
+
 class ConferenceUpdateView(UpdateView):
     model = Conference
     fields = [ 'conference_name', 'conference_article', 'conference_doi', 'ugc_listed']
     template_name = 'conferenceupdate.html'
     success_url = reverse_lazy('conferences')
     pk_url_kwarg = 'pk'
-
+    
     def form_valid(self, form):
         conference = self.get_object()
         form.save()
         return HttpResponseRedirect(self.get_success_url())
-    
+
+
+
+
 class ConferenceDeleteView(DeleteView):
     model = Conference
     template_name = 'conferencedelete.html'
     success_url = reverse_lazy('conferences')
-
 
 
 
@@ -109,6 +127,8 @@ def hod_view_other_journal_details(request):
     return render(request, 'hodviewjournaldetail.html', {'journals':journals})
 
 
+
+
 class journalcreate(CreateView):
     model=Journal
     fields = ['journal_id', 'journal_name', 'journal_article', 'journal_doi', 'ugc_listed']
@@ -118,7 +138,10 @@ class journalcreate(CreateView):
     def form_valid(self, form):
         form.instance.fac_name = self.request.user
         return super().form_valid(form)
-    
+
+
+
+
 class JournalUpdateView(UpdateView):
     model = Journal
     fields = [ 'journal_name', 'journal_article', 'journal_doi', 'ugc_listed']
@@ -130,7 +153,10 @@ class JournalUpdateView(UpdateView):
         conference = self.get_object()
         form.save()
         return HttpResponseRedirect(self.get_success_url())
-    
+
+
+
+
 class JournalDeleteView(DeleteView):
     model = Journal
     template_name = 'journaldelete.html'
@@ -138,12 +164,6 @@ class JournalDeleteView(DeleteView):
 
 
  
-
-
-
-def choose(request):
-    return render(request,'choose.html')
-
 
 def home(request):
     return render (request,'home.html')
