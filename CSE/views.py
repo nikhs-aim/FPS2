@@ -1,3 +1,4 @@
+from typing import Self
 from django.shortcuts import render
 from .models import Conference,Journal
 from django.views.generic.edit import CreateView
@@ -7,6 +8,9 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login
 from django.urls import reverse_lazy
 from .forms import RegistrationForm
+from django.views.generic.edit import UpdateView
+from django.http import HttpResponseRedirect
+from django.views.generic.edit import DeleteView
 
 
 
@@ -54,6 +58,7 @@ def conference_details(request):
     return render(request, 'conferencedetail.html', {'conferences': conferences})
 
 
+
 def hod_view_other_conference_details(request):
     if request.user.is_authenticated:
         conferences=Conference.objects.exclude(fac_name=request.user)
@@ -69,6 +74,25 @@ class conferencecreate(CreateView):
     def form_valid(self, form):
         form.instance.fac_name = self.request.user
         return super().form_valid(form)    
+
+
+class ConferenceUpdateView(UpdateView):
+    model = Conference
+    fields = [ 'conference_name', 'conference_article', 'conference_doi', 'ugc_listed']
+    template_name = 'conferenceupdate.html'
+    success_url = reverse_lazy('conferences')
+    pk_url_kwarg = 'pk'
+
+    def form_valid(self, form):
+        conference = self.get_object()
+        form.save()
+        return HttpResponseRedirect(self.get_success_url())
+    
+class ConferenceDeleteView(DeleteView):
+    model = Conference
+    template_name = 'conferencedelete.html'
+    success_url = reverse_lazy('conferences')
+
 
 
 
@@ -94,6 +118,25 @@ class journalcreate(CreateView):
     def form_valid(self, form):
         form.instance.fac_name = self.request.user
         return super().form_valid(form)
+    
+class JournalUpdateView(UpdateView):
+    model = Journal
+    fields = [ 'journal_name', 'journal_article', 'journal_doi', 'ugc_listed']
+    template_name = 'journalupdate.html'
+    success_url = reverse_lazy('journals')
+    pk_url_kwarg = 'pk'
+
+    def form_valid(self, form):
+        conference = self.get_object()
+        form.save()
+        return HttpResponseRedirect(self.get_success_url())
+    
+class JournalDeleteView(DeleteView):
+    model = Journal
+    template_name = 'journaldelete.html'
+    success_url = reverse_lazy('journals')
+
+
  
 
 

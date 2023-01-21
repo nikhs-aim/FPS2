@@ -14,6 +14,8 @@
             <th>Conference doi</th>
             <th>Ugc list</th>
             <th>Conference article</th>
+            <th>Update</th>
+            <th>Delete</th>
         </tr>
     </thead>
     <tbody>
@@ -25,10 +27,19 @@
                 <td>{{ i.ugc_listed }}</td>
                 <td>
                     {% if i.conference_article %}
-                      <a href="{{ i.conference_article.url }}" target="_blank" >View PDF</a>
-                      <a href="{{ i.conference_article.url }}" target="_blank" download>Downoad PDF</a>
+                      <button><a href="{{ i.conference_article.url }}" target="_blank" >View PDF</a></button>
+                      <button><a href="{{ i.conference_article.url }}" target="_blank" download>Downoad PDF</a></button>
                     {% endif %}
                 </td>
+                <td>
+                    <form action="{% url 'conference_update' i.pk %}" method="get">
+                        <input type="submit" value="Update">
+                    </form>
+                </td>
+                <td>
+                    <button><a href="{% url 'conference_delete' i.pk %}">Delete</a></button>
+                </td>
+                
             </tr>
         {% endfor %}
     </tbody>

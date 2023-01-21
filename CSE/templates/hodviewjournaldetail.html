@@ -26,8 +26,8 @@
                 <td>{{ i.ugc_listed }}</td>
                 <td>
                     {% if i.journal_article %}
-                      <a href="{{ i.journal_article.url }}" target="_blank" >View PDF</a>
-                      <a href="{{ i.journal_article.url }}" target="_blank" download>Downoad PDF</a>
+                      <button><a href="{{ i.journal_article.url }}" target="_blank" >View PDF</a></button>
+                      <button><a href="{{ i.journal_article.url }}" target="_blank" download>Downoad PDF</a></button>
                     {% endif %}
                 </td>
             </tr>
