@@ -1,7 +1,7 @@
 <h1>My Journal List</h1>
 <hr>
 {% if user.role == "HOD" %}
-<button><a href="{% url 'hodoptions' %}">Go back</a></button><br><br>
+<button><a href="{% url 'options' %}">Go back</a></button><br><br>
 {% else %}
 <button><a href="{% url 'otheroptions' %}">Go back</a></button><br><br>
 {% endif %}

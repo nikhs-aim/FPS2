@@ -2,8 +2,7 @@
 <hr>
     <form method="post" autocomplete="off">
         {% csrf_token %}
-        Name:<input type="text" name="username" placeholder="Enter your name"><br><br>
-        Password:<input type="password" name="password" placeholder="Enter password"><br><br>
+        {{form.as_p}}
         <input type="submit" value="Login"><br><br>
         Don't have an account ? <br>
         Click here to register<button><a href="{% url 'register' %}">Register</a></button>
