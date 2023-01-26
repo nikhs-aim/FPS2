@@ -1,10 +1,70 @@
-<h1>Register Your Account</h1>
-<hr>
+<body>
+        <h1>Register Your Account</h1>
+        <hr>
 <form method="post" autocomplete="off">
-        {% csrf_token %}
-        {{form.as_p}}
-        <input type="submit" value="Register">
- </form>
-    
-    
-  
+                {% csrf_token %}
+        <p>
+            <label for="id_username">Username:</label>
+            <input type="text" name="username" maxlength="100" autofocus="" required="" id="id_username" placeholder="Enter your name">
+        </p>
+        
+
+        <p>
+            <label for="id_age">Age:</label>
+            <input type="number" name="age" required="" id="id_age" placeholder="Enter your age">
+        </p>
+        
+
+        <p>
+            <label for="id_email">Email:</label>
+            <input type="email" name="email" maxlength="100" required="" id="id_email" placeholder="Eg. abc@gmail.com">
+        </p>
+        
+
+        <p>
+            <label for="id_role">Role:</label>
+            <select name="role" id="id_role">
+            <option value="HOD">HOD</option>
+            <option value="OTHER" selected="">OTHER</option>
+            </select>
+        </p>
+        
+
+        <p>
+            <label for="id_gender">Gender:</label>
+            <select name="gender" required="" id="id_gender">
+            <option value="" selected="">---------</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            </select>
+        </p>
+        
+
+        <p>
+            <label for="id_department_name">Department name:</label>
+            <input type="text" name="department_name" maxlength="100" required="" id="id_department_name" placeholder="Enter department name">
+        </p>
+        
+
+        <p>
+            <label for="id_phone_number">Phone number:</label>
+            <input type="text" name="phone_number" maxlength="15" required="" id="id_phone_number" placeholder="Eg. +91xxxxxxxxxx">
+        </p>
+        
+
+        <p>
+            <label for="id_password1">Password:</label>
+            <input type="password" name="password1" required="" id="id_password1" placeholder="Enter password">
+        </p>
+        
+
+        <p>
+            <label for="id_password2">Confirm Password:</label>
+            <input type="password" name="password2" required="" id="id_password2" placeholder="Confirm password">
+        </p>
+        
+        <input type="submit" value="Register"><br><br><button><a href="{% url 'login' %}">Go back</a></button>
+</form>
+
+            
+</body>

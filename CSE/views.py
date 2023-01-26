@@ -13,16 +13,8 @@ from django.views.generic.edit import DeleteView
 
 
 
-
-def registration_view(request):
-    if request.method == 'POST':
-        form = RegistrationForm(request.POST)
-        if form.is_valid():
-            user=form.save()
-            return redirect('login')                      # redirect user to login page after registration
-    else:
-        form = RegistrationForm()
-    return render(request, 'register.html', {'form': form})
+def home(request):
+    return render (request,'home.html')
 
 
 
@@ -44,8 +36,22 @@ def login_view(request):
 
 
 
+def registration_view(request):
+    if request.method == 'POST':
+        form = RegistrationForm(request.POST)
+        if form.is_valid():
+            user=form.save()
+            return redirect('login')                      # redirect user to login page after registration
+    else:
+        form = RegistrationForm()
+    return render(request, 'register.html', {'form': form})
+
+
+
+
 def other_home_after_login(request):
     return render(request,'otherhomeafterlogin.html')
+    
 
 def hod_home_after_login(request):
     return render (request,'hodhomeafterlogin.html')
@@ -53,14 +59,18 @@ def hod_home_after_login(request):
 
 
 
+
 def Options(request):
     return render(request,'options.html')
+
 
 def other_option(request):
     return render(request,'otheroption.html')
 
+
 def hod_options(request):
     return render (request,'hodoption.html')
+
 
 
 
@@ -69,6 +79,7 @@ def conference_details(request):
     if request.user.is_authenticated:
         conferences = Conference.objects.filter(fac_name=request.user)
     return render(request, 'conferencedetail.html', {'conferences': conferences})
+
 
 
 def hod_view_other_conference_details(request):
@@ -114,11 +125,15 @@ class ConferenceDeleteView(DeleteView):
 
 
 
-     
+
+
 def journal_details(request):
     if request.user.is_authenticated:
         journals = Journal.objects.filter(fac_name=request.user)
     return render(request, 'journaldetail.html', {'journals': journals})
+
+
+
 
 
 def hod_view_other_journal_details(request):
@@ -164,6 +179,3 @@ class JournalDeleteView(DeleteView):
 
 
  
-
-def home(request):
-    return render (request,'home.html')

@@ -2,7 +2,14 @@
 <hr>
     <form method="post" autocomplete="off">
         {% csrf_token %}
-        {{form.as_p}}
+        <p>
+            <label for="id_username">Username:</label>
+            <input type="text" name="username" autofocus="" autocapitalize="none" autocomplete="username" maxlength="150" required="" id="id_username" placeholder="Enter your name">
+        </p>
+        <p>
+            <label for="id_password">Password:</label>
+            <input type="password" name="password" autocomplete="current-password" required="" id="id_password" placeholder="Password">
+        </p>
         <input type="submit" value="Login"><br><br>
         Don't have an account ? <br>
         Click here to register<button><a href="{% url 'register' %}">Register</a></button>
